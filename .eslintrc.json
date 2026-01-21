@@ -1,8 +1,27 @@
 {
   "extends": ["airbnb", "prettier", "plugin:node/recommended"],
   "plugins": ["prettier"],
+
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".mjs"]
+      }
+    }
+  },
+
   "rules": {
     "prettier/prettier": "error",
+
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "always",
+        "mjs": "always"
+      }
+    ],
+
     "spaced-comment": "off",
     "no-console": "warn",
     "consistent-return": "off",
