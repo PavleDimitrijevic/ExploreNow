@@ -2,6 +2,7 @@ import express from 'express';
 import morgan from 'morgan';
 
 import tourRouter from './routes/tourRoutes.js';
+import userRotuer from './routes/userRoutes.js';
 import AppError from './utils/appError.js';
 import globalErrorHandler from './controllers/errorController.js';
 
@@ -21,6 +22,7 @@ app.use((req, res, next) => {
 
 // 2) Routes
 app.use('/api/v1/tours', tourRouter);
+app.use('/api/v1/users', userRotuer);
 
 app.use((req, res, next) => {
   next(new AppError(`'Can't find ${req.originalUrl} on this server!`, 404));
