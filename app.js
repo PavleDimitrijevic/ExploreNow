@@ -2,6 +2,7 @@ import express from 'express';
 import morgan from 'morgan';
 
 import tourRouter from './routes/tourRoutes.js';
+import AppError from './utils/appError.js';
 
 const app = express();
 
@@ -19,5 +20,9 @@ app.use((req, res, next) => {
 
 // 2) Routes
 app.use('/api/v1/tours', tourRouter);
+
+app.use((req, res, next) => {
+  next(new AppError(`'Can't find ${req.originalUrl} on this server!`, 404));
+});
 
 export default app;
