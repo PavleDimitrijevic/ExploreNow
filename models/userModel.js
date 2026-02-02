@@ -55,6 +55,10 @@ userSchema.pre('save', async function () {
   this.passwordConfirm = undefined;
 });
 
+userSchema.pre(/^find/, function () {
+  this.find({ active: { $ne: false } });
+});
+
 userSchema.methods.correctPassword = async function (
   candidatePassword,
   userPassword,
