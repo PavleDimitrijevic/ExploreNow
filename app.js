@@ -5,6 +5,7 @@ import helmet from 'helmet';
 
 import tourRouter from './routes/tourRoutes.js';
 import userRotuer from './routes/userRoutes.js';
+import reviewRouter from './routes/reviewRoutes.js';
 import AppError from './utils/appError.js';
 import globalErrorHandler from './controllers/errorController.js';
 
@@ -44,6 +45,7 @@ app.use((req, res, next) => {
 // 2) Routes
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRotuer);
+app.use('/api/v1/reviews', reviewRouter);
 
 app.use((req, res, next) => {
   next(new AppError(`'Can't find ${req.originalUrl} on this server!`, 404));

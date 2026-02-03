@@ -3,10 +3,10 @@ import dotenv from 'dotenv';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import Tour from '../../models/tourModel.js';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-import Tour from '../../models/tourModel.js';
 
 dotenv.config({ path: './config.env' });
 
@@ -19,7 +19,7 @@ mongoose.connect(DB).then(() => console.log('DB connection successful!'));
 
 // READ JSON FILE
 const tours = JSON.parse(
-  fs.readFileSync(path.join(__dirname, 'tours-simple.json'), 'utf-8'),
+  fs.readFileSync(path.join(__dirname, 'tours.json'), 'utf-8'),
 );
 
 // IMPORT DATA INTO DB
