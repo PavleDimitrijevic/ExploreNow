@@ -7,8 +7,8 @@ export const aliasTopTours = (req, res, next) => {
   req.apiQuery = {
     ...req.query,
     limit: '5',
-    sort: '-ratingAverage,price',
-    fields: 'name,price,ratingAverage,summary,difficulty',
+    sort: '-ratingsAverage,price',
+    fields: 'name,price,ratingsAverage,summary,difficulty',
   };
   next();
 };
@@ -30,7 +30,7 @@ export const getAllTours = catchAsync(async (req, res, next) => {
 });
 
 export const getTour = catchAsync(async (req, res, next) => {
-  const tour = await Tour.findById(req.params.id);
+  const tour = await Tour.findById(req.params.id).populate('reviews');
 
   if (!tour) {
     return next(new AppError('No tour found with that ID', 404));
