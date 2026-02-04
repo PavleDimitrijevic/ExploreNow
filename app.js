@@ -2,6 +2,7 @@ import express from 'express';
 import morgan from 'morgan';
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
+import qs from 'qs';
 
 import tourRouter from './routes/tourRoutes.js';
 import userRotuer from './routes/userRoutes.js';
@@ -10,6 +11,8 @@ import AppError from './utils/appError.js';
 import globalErrorHandler from './controllers/errorController.js';
 
 const app = express();
+
+app.set('query parser', (str) => qs.parse(str));
 
 // 1) Global middlewares
 

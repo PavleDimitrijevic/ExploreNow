@@ -1,6 +1,7 @@
 import catchAsync from '../utils/catchAsync.js';
 import User from '../models/userModel.js';
 import AppError from '../utils/appError.js';
+import * as factory from './handlerFactory.js';
 
 const filterObj = (obj, ...allowedFields) => {
   const newObj = {};
@@ -10,17 +11,10 @@ const filterObj = (obj, ...allowedFields) => {
   return newObj;
 };
 
-export const getAllUsers = catchAsync(async (req, res) => {
-  const users = await User.find();
-
-  res.status(200).json({
-    status: 'success',
-    results: users.length,
-    data: {
-      users: users,
-    },
-  });
-});
+export const getMe = (req, res, next) => {
+  req.params.id = req.user.id;
+  next();
+};
 
 export const updateMe = catchAsync(async (req, res, next) => {
   // 1) Create error if user POSTs password data
@@ -58,27 +52,15 @@ export const deleteMe = catchAsync(async (req, res, next) => {
   });
 });
 
-export const getUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'This route is not yet defined!',
-  });
-};
 export const createUser = (req, res) => {
   res.status(500).json({
     status: 'error',
     message: 'This route is not yet defined!',
   });
 };
-export const updateUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'This route is not yet defined!',
-  });
-};
-export const deleteUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'This route is not yet defined!',
-  });
-};
+
+export const getUser = factory.getOne(User);
+export const getAllUsers = factory.getAll(User);
+// Do NOT update passwords with this, because of findByIdAndUpdate in factory, only for admins!
+export const updateUser = factory.updateOne(User);
+export const deleteUser = factory.deleteOne(User);
