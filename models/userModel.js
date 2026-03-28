@@ -55,6 +55,12 @@ userSchema.pre('save', async function () {
   this.passwordConfirm = undefined;
 });
 
+userSchema.pre('save', function () {
+  if (!this.isModified('password') || this.isNew) return;
+
+  this.passwordChangedAt = Date.now() - 1000;
+});
+
 userSchema.pre(/^find/, function () {
   this.find({ active: { $ne: false } });
 });
@@ -77,12 +83,6 @@ userSchema.methods.changedPasswordAfter = function (JWTimestamp) {
 
   return false;
 };
-
-userSchema.pre('save', function () {
-  if (!this.isModified('password') || this.isNew) return;
-
-  this.passwordChangedAt = Date.now() - 1000;
-});
 
 userSchema.methods.createPasswordResetToken = function () {
   const resetToken = crypto.randomBytes(32).toString('hex');
