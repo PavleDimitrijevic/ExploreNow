@@ -76,6 +76,7 @@ export const getAll = (Model) =>
       .limitFields()
       .paginate();
     const doc = await features.query;
+    // const doc = await features.query.explain(); // on getAllTours operation to see index working
 
     res.status(200).json({
       status: 'success',
