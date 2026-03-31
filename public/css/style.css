@@ -1,0 +1,81 @@
+:root {
+  --section-rotate: 6vw;
+  --page-bg: #07111f;
+  --page-bg-soft: #0d1830;
+  --surface: rgba(10, 19, 35, 0.82);
+  --surface-strong: rgba(14, 26, 46, 0.94);
+  --surface-light: rgba(255, 255, 255, 0.08);
+  --panel: #f8f4ee;
+  --panel-soft: #efe7dc;
+  --text: #e9edf7;
+  --text-dark: #162033;
+  --muted: #98a7c2;
+  --accent: #ff8a5b;
+  --accent-strong: #ff6a3d;
+  --accent-soft: #ffd6b3;
+  --gold: #ffc46b;
+  --success: #39d98a;
+  --danger: #ff6b81;
+  --border: rgba(255, 255, 255, 0.12);
+  --shadow-lg: 0 2.4rem 6rem rgba(0, 0, 0, 0.28);
+  --shadow-md: 0 1.6rem 3.5rem rgba(0, 0, 0, 0.22);
+  --radius-lg: 2.8rem;
+  --radius-md: 1.8rem;
+  --radius-sm: 1.2rem;
+  --content-width: 124rem;
+}
+
+::-moz-selection {
+  background-color: var(--accent);
+  color: #fff7f1;
+}
+
+::selection {
+  background-color: var(--accent);
+  color: #fff7f1;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  padding: 2.4rem;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.7;
+  font-weight: 400;
+  font-family: 'Avenir Next', 'Segoe UI', sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(255, 138, 91, 0.2),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at top right,
+      rgba(255, 196, 107, 0.14),
+      transparent 24%
+    ),
+    linear-gradient(135deg, #050c18 0%, #0a1325 45%, #09182f 100%);
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+}
