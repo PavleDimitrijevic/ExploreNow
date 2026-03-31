@@ -34,6 +34,10 @@ ExploreNow is a backend REST API for searching and booking adventure tours. The 
   - Rate limiting
   - HTTP headers with Helmet
 
+- Server-Side Rendering (SSR)
+  - Dynamic rendering using Pug templates
+  - Fully rendered HTML pages delivered from the serve
+
 ---
 
 ## Installation
@@ -41,11 +45,12 @@ ExploreNow is a backend REST API for searching and booking adventure tours. The 
 1. Clone the repository:
 
 git clone https://github.com/yourusername/explorenow.git
-cd explorenow
 
-2. Install dependencies: npm install
+2. cd explorenow
 
-3. Create a .env file in the root folder:
+3. Install dependencies: npm install
+
+4. Create a .env file in the root folder:
 
 PORT=3001
 USERNAME=<YOUR_USERNAME>
@@ -60,3 +65,22 @@ EMAIL_USERNAME=<MAILTRAP_USERNAME>
 EMAIL_PASSWORD=<MAILTRAP_PASSWORD>
 
 4. Start the program: npm run start
+
+5. Open in browser: http://localhost:3001
+
+---
+
+## Postman Collection
+
+You can test the API using this Postman collection:
+
+[Path to collection(json) inside the project:](/dev-data/postman/explorenow_postman_collection.json)
+
+How to use:
+
+1. Import the collection into Postman
+2. Set your base URL (e.g. http://localhost:3001)
+3. Use login to get JWT token
+4. Use protected routes with Authorization header:
+
+Authorization: Bearer <your_token>

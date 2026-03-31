@@ -1,0 +1,1070 @@
+{
+  "info": {
+    "_postman_id": "2687b012-2c1a-4b5f-a9bf-ecfaa8fc8cd9",
+    "name": "ExploreNow",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "38193263"
+  },
+  "item": [
+    {
+      "name": "Tours",
+      "item": [
+        {
+          "name": "Update Tour",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n \"guides\":[\r\n        \"6980d0b8404aa98f2308069d\",\r\n        \"6980dee0ab638ee608711e37\"\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}api/v1/tours/6981f19bb94b33f986b3991b",
+              "host": [
+                "{{URL}}api"
+              ],
+              "path": [
+                "v1",
+                "tours",
+                "6981f19bb94b33f986b3991b"
+              ]
+            },
+            "description": "## Update Tour\n\nUpdates an existing tour's details using a partial update. Only the fields provided in the request body will be modified — other fields remain unchanged.\n\n**Method:** `PATCH`  \n**Endpoint:** `{{URL}}api/v1/tours/:id`\n\n---\n\n### Path Parameter\n\n| Parameter | Description |\n|-----------|-------------|\n| `id` | The unique identifier of the tour to update. In this request, the tour ID is `6981f19bb94b33f986b3991b`. |\n\n---\n\n### Request Body\n\nThe request body should be a JSON object containing the fields you want to update.\n\n```json\n{\n  \"guides\": [\"6980d0b8404aa98f2308069d\", \"6980dee0ab638ee608711e37\"]\n}\n```\n\n| Field | Type | Description |\n|-------|------|-------------|\n| `guides` | `array of strings` | A list of user IDs representing the tour guides assigned to this tour. Each string is the unique ID of a guide (user) in the system. |\n\n---\n\n### Notes\n\n- This endpoint uses `PATCH`, meaning it performs a **partial update** — only the fields included in the body are changed.\n- The `guides` array replaces the current list of assigned guides for the specified tour.\n- Authentication is required. Include a valid JWT token via the `{{jwt}}` variable in the Authorization header."
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Tours",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}api/v1/tours?price[lt]=1000&ratingsAverage[gte]=4.7",
+              "host": [
+                "{{URL}}api"
+              ],
+              "path": [
+                "v1",
+                "tours"
+              ],
+              "query": [
+                {
+                  "key": "price[lt]",
+                  "value": "1000"
+                },
+                {
+                  "key": "ratingsAverage[gte]",
+                  "value": "4.7"
+                }
+              ]
+            },
+            "description": "## Get All Tours\n\nRetrieves a list of tours filtered by the specified query parameters. This endpoint supports advanced filtering using comparison operators in bracket notation, allowing you to narrow down results based on price, ratings, and other numeric fields.\n\n### Endpoint\n\n```\nGET {{URL}}api/v1/tours\n\n ```\n\n### Query Parameters\n\n| Parameter | Value | Description |\n| --- | --- | --- |\n| `price[lt]` | `1000` | Returns only tours with a price **less than** 1000 |\n| `ratingsAverage[gte]` | `4.7` | Returns only tours with an average rating **greater than or equal to** 4.7 |\n\n### Filtering Syntax\n\nThis API uses a bracket notation for comparison-based filtering:\n\n- `[lt]` — less than (`<`)\n    \n- `[lte]` — less than or equal to (`<=`)\n    \n- `[gt]` — greater than (`>`)\n    \n- `[gte]` — greater than or equal to (`>=`)\n    \n\nThese operators can be applied to any numeric field (e.g., `price`, `ratingsAverage`, `duration`, `maxGroupSize`) to build flexible, precise queries.\n\n### Example Request\n\n```\nGET {{URL}}api/v1/tours?price[lt]=1000&ratingsAverage[gte]=4.7\n\n ```\n\nThis returns all tours that cost less than **1000** and have an average rating of at least **4.7**."
+          },
+          "response": []
+        },
+        {
+          "name": "Create New Tour",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"New Test tour 2\",\r\n    \"duration\": 1,\r\n    \"maxGroupSize\": 1,\r\n    \"difficulty\": \"easy\",\r\n    \"price\": 200,\r\n    \"summary\": \"Nice adventure\",\r\n    \"imageCover\": \"tour-3-cover.jpg\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}api/v1/tours",
+              "host": [
+                "{{URL}}api"
+              ],
+              "path": [
+                "v1",
+                "tours"
+              ]
+            },
+            "description": "## Create New Tour\n\nCreates a new tour in the system. This endpoint accepts tour details in the request body and persists the new tour to the database.\n\n---\n\n### Authentication\n\nThis endpoint requires a valid JWT token. Include it as a Bearer token in the `Authorization` header:\n\n```\nAuthorization: Bearer {{jwt}}\n```\n\n---\n\n### Request Body\n\nSend a JSON object with the following fields:\n\n| Field | Type | Required | Description |\n|---|---|---|---|\n| `name` | `string` | Yes | The name/title of the tour |\n| `duration` | `number` | Yes | Duration of the tour in days |\n| `maxGroupSize` | `number` | Yes | Maximum number of participants allowed in the group |\n| `difficulty` | `string` | Yes | Difficulty level of the tour. Accepted values: `easy`, `medium`, `difficult` |\n| `price` | `number` | Yes | Price of the tour in the base currency |\n| `summary` | `string` | Yes | A short summary describing the tour |\n| `imageCover` | `string` | Yes | Filename of the cover image for the tour (e.g., `tour-3-cover.jpg`) |\n\n**Example Request Body:**\n\n```json\n{\n  \"name\": \"New Test tour 2\",\n  \"duration\": 1,\n  \"maxGroupSize\": 1,\n  \"difficulty\": \"easy\",\n  \"price\": 200,\n  \"summary\": \"Nice adventure\",\n  \"imageCover\": \"tour-3-cover.jpg\"\n}\n```\n\n---\n\n### Responses\n\n- **201 Created** — Tour was successfully created. Returns the newly created tour object.\n- **400 Bad Request** — Validation failed. One or more required fields are missing or invalid.\n- **401 Unauthorized** — Missing or invalid JWT token.\n"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Tour",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}api/v1/tours/5c88fa8cf4afda39709c295d",
+              "host": [
+                "{{URL}}api"
+              ],
+              "path": [
+                "v1",
+                "tours",
+                "5c88fa8cf4afda39709c295d"
+              ]
+            },
+            "description": "Retrieves a single tour by its unique ID.\n\n## Endpoint\n`GET {{URL}}api/v1/tours/:id`\n\n## Path Parameters\n| Parameter | Type   | Required | Description          |\n|-----------|--------|----------|----------------------|\n| id        | string | Yes      | The unique ID of the tour to retrieve |\n\n## Authentication\nRequires a valid JWT bearer token passed via the `Authorization` header:\n```\nAuthorization: Bearer {{jwt}}\n```\n\n## Responses\n| Status | Description |\n|--------|-------------|\n| 200 OK | Successfully retrieved the tour object |\n| 401 Unauthorized | Missing or invalid JWT token |\n| 404 Not Found | No tour found with the given ID |"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Tour",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}api/v1/tours/69c81561f85c2339878b48d1",
+              "host": [
+                "{{URL}}api"
+              ],
+              "path": [
+                "v1",
+                "tours",
+                "69c81561f85c2339878b48d1"
+              ]
+            },
+            "description": "## Delete Tour\n\nDeletes a specific tour from the system using its unique ID.\n\n**Method:** `DELETE`  \n**URL:** `{{URL}}api/v1/tours/69c81561f85c2339878b48d1`\n\n---\n\n### Path Parameters\n\n| Parameter | Description |\n|-----------|-------------|\n| `69c81561f85c2339878b48d1` | The unique ID of the tour to be deleted. Replace this with the ID of the tour you want to delete. |\n\n---\n\n### Authentication\n\nThis endpoint requires a valid JWT token. The token is read from the `{{jwt}}` variable and should be included in the request headers (e.g., as a `Bearer` token in the `Authorization` header).\n\nMake sure the `jwt` variable is set in your active environment before sending this request.\n\n---\n\n### Expected Behavior\n\n- **Success:** Returns a `204 No Content` or `200 OK` response indicating the tour was successfully deleted.\n- The tour with the specified ID will be permanently removed from the system.\n- If the tour does not exist, the API may return a `404 Not Found` response.\n- If the JWT token is missing or invalid, the API will return a `401 Unauthorized` response."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Top 5 Cheap Tours",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}api/v1/tours/top-5-cheap",
+              "host": [
+                "{{URL}}api"
+              ],
+              "path": [
+                "v1",
+                "tours",
+                "top-5-cheap"
+              ]
+            },
+            "description": "## Get Top 5 Cheap Tours\n\nRetrieves a pre-filtered list of the **top 5 cheapest tours** available. This is an alias route that automatically applies sorting by price (ascending) and limits the result set to 5 tours, making it a convenient shortcut for displaying budget-friendly options.\n\n### Base URL\n\nThis request uses the `{{URL}}` collection variable as the base URL. Ensure the variable is set in your active environment (e.g., `http://localhost:3000/` or your deployed server URL).\n\n### Endpoint\n\n```\nGET {{URL}}api/v1/tours/top-5-cheap\n```\n\n### Response\n\nReturns a JSON object containing:\n\n- **status** – `\"success\"` if the request was successful\n- **results** – the number of tours returned (up to 5)\n- **data** – an object containing a `tours` array with the top 5 cheapest tour documents, each including details such as name, price, duration, difficulty, and ratings\n\n### Example Response Shape\n\n```json\n{\n  \"status\": \"success\",\n  \"results\": 5,\n  \"data\": {\n    \"tours\": [\n      {\n        \"name\": \"The Sea Explorer\",\n        \"duration\": 7,\n        \"difficulty\": \"medium\",\n        \"price\": 497,\n        \"ratingsAverage\": 4.8\n      }\n    ]\n  }\n}\n```\n\n### Notes\n\n- No authentication or query parameters are required for this endpoint.\n- The results are pre-sorted by price in ascending order and limited to 5 records by the server."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Monthly Plan",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}api/v1/tours/monthly-plan/2021",
+              "host": [
+                "{{URL}}api"
+              ],
+              "path": [
+                "v1",
+                "tours",
+                "monthly-plan",
+                "2021"
+              ]
+            },
+            "description": "## Get Monthly Plan\n\nRetrieves the monthly plan for tours for a specific year. The response includes a breakdown of tours scheduled for each month, providing details such as the number of tours, tour names, and the month they are planned for.\n\n**Method:** `GET`\n\n**Endpoint:** `{{URL}}api/v1/tours/monthly-plan/2021`\n\n### Path Parameters\n\n| Parameter | Type   | Description                              |\n|-----------|--------|------------------------------------------|\n| `year`    | Number | The year for which to retrieve the monthly tour plan (e.g., `2021`) |\n\n### Authentication\n\nThis request requires a valid JWT token. Set the `jwt` variable in your active environment before sending.\n\n### Example Response\n\n```json\n{\n  \"status\": \"success\",\n  \"data\": {\n    \"plan\": [\n      {\n        \"numTourStarts\": 3,\n        \"tours\": [\"The Forest Hiker\", \"The Sea Explorer\", \"The Snow Adventurer\"],\n        \"month\": 1\n      },\n      {\n        \"numTourStarts\": 1,\n        \"tours\": [\"The City Wanderer\"],\n        \"month\": 2\n      }\n    ]\n  }\n}\n```\n\n### Notes\n\n- The year is passed as a path parameter in the URL.\n- Returns one entry per month that has at least one tour scheduled.\n- Months with no tours are not included in the response."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Tour Stats",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}api/v1/tours/tour-stats",
+              "host": [
+                "{{URL}}api"
+              ],
+              "path": [
+                "v1",
+                "tours",
+                "tour-stats"
+              ]
+            },
+            "description": "## Get Tour Stats\n\nRetrieves aggregated statistical data about all tours in the system. This endpoint uses a database aggregation pipeline to compute meaningful metrics grouped by tour difficulty.\n\n### Response Data\n\nThe response typically includes statistics such as:\n\n- **Number of tours** per difficulty level (e.g., easy, medium, difficult)\n- **Average, minimum, and maximum ratings** across tours\n- **Average, minimum, and maximum prices** per difficulty group\n- **Total number of ratings** submitted\n\n### Example Use Cases\n\n- Display a summary dashboard of tour offerings\n- Compare pricing and quality across difficulty levels\n- Provide users with an overview before browsing individual tours\n\n### Authentication\n\nThis endpoint may require a valid JWT token depending on the server configuration. If authentication is required, include the token in the `Authorization` header:\n\n```\nAuthorization: Bearer {{jwt}}\n```\n\n### Method & URL\n\n```\nGET {{URL}}api/v1/tours/tour-stats\n```\n\n### Response Example\n\n```json\n{\n  \"status\": \"success\",\n  \"data\": {\n    \"stats\": [\n      {\n        \"difficulty\": \"easy\",\n        \"numTours\": 3,\n        \"numRatings\": 27,\n        \"avgRating\": 4.7,\n        \"avgPrice\": 1270,\n        \"minPrice\": 397,\n        \"maxPrice\": 1997\n      },\n      {\n        \"difficulty\": \"difficult\",\n        \"numTours\": 2,\n        \"numRatings\": 41,\n        \"avgRating\": 4.6,\n        \"avgPrice\": 1750,\n        \"minPrice\": 997,\n        \"maxPrice\": 2997\n      }\n    ]\n  }\n}\n```"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Tours Within Radius",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{URL}}api/v1/tours/tours-within/200/center/44.80855321720493,20.455864096688554/unit/km",
+              "host": [
+                "{{URL}}api"
+              ],
+              "path": [
+                "v1",
+                "tours",
+                "tours-within",
+                "200",
+                "center",
+                "44.80855321720493,20.455864096688554",
+                "unit",
+                "km"
+              ]
+            },
+            "description": "## Get Tours Within Radius\n\nRetrieves all tours located within a specified radius from a given geographic center point. This is useful for finding tours available near a particular location, such as a user's current position or a city center.\n\n---\n\n### URL Structure\n\n```\nGET {{URL}}api/v1/tours/tours-within/:distance/center/:latlng/unit/:unit\n```\n\n### URL Parameters\n\n| Parameter  | Value                                    | Description                                                                 |\n|------------|------------------------------------------|-----------------------------------------------------------------------------|\n| `distance` | `200`                                    | The radius distance within which to search for tours.                       |\n| `center`   | `44.80855321720493,20.455864096688554`   | The center point of the search area, provided as `latitude,longitude`.      |\n| `unit`     | `km`                                     | The unit of measurement for the distance. Accepted values: `km` or `mi`.   |\n\n---\n\n### Notes\n\n- The `center` parameter must be provided as a comma-separated pair of decimal coordinates in the format `latitude,longitude`.\n- The `distance` value is interpreted in the unit specified by the `unit` parameter (`km` for kilometers, `mi` for miles).\n- The example coordinates (`44.80855321720493, 20.455864096688554`) correspond to a location in **Belgrade, Serbia**.\n- Make sure the `{{URL}}` environment variable is set correctly in your active environment (e.g., `Dev:ExploreNow`) before sending the request.\n- Authentication may be required depending on the API configuration — ensure the appropriate `jwt` token is set in your environment if needed."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Distances to Tour From Point",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{URL}}api/v1/tours/distances/44.80855321720493,20.455864096688554/unit/km",
+              "host": [
+                "{{URL}}api"
+              ],
+              "path": [
+                "v1",
+                "tours",
+                "distances",
+                "44.80855321720493,20.455864096688554",
+                "unit",
+                "km"
+              ]
+            },
+            "description": "## Get Distances to Tour From Point\n\nThis endpoint calculates the distances from a given geographic point (latitude, longitude) to **all available tours**, returning the results in the specified unit of measurement.\n\n---\n\n### URL Structure\n\n```\nGET {{URL}}api/v1/tours/distances/:latlng/unit/:unit\n```\n\n| Segment | Description |\n|---|---|\n| `{{URL}}` | Base URL variable (e.g., `http://localhost:3000/` or your deployed API URL) |\n| `api/v1/tours/distances/` | Base path for the distances resource |\n| `44.80855321720493,20.455864096688554` | The starting geographic point as `latitude,longitude` (decimal degrees) |\n| `unit/km` | The unit of distance measurement — use `km` for kilometers or `mi` for miles |\n\n---\n\n### Path Parameters\n\n| Parameter | Example Value | Description |\n|---|---|---|\n| `latlng` | `44.80855321720493,20.455864096688554` | Comma-separated latitude and longitude of the reference point |\n| `unit` | `km` | Unit for the returned distances. Accepted values: `km` (kilometers), `mi` (miles) |\n\n---\n\n### Variables\n\n- **`{{URL}}`** — Resolves to the base URL of the API server. This is defined in the active environment (e.g., `Dev:ExploreNow`). Make sure the correct environment is selected before sending the request.\n\n---\n\n### Response\n\nA successful response returns a list of all tours along with the calculated distance from the provided geographic point to each tour's location, expressed in the specified unit.\n\n> **Note:** Ensure the coordinates are valid decimal degree values and that the `unit` parameter is either `km` or `mi`. Invalid values may result in an error response."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Tours/Reviews",
+      "item": [
+        {
+          "name": "Create New Review on Tour",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"rating\":5,\r\n    \"review\":\"Cool\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}api/v1/tours/69c821b77ff7943a90f6022c/reviews",
+              "host": [
+                "{{URL}}api"
+              ],
+              "path": [
+                "v1",
+                "tours",
+                "69c821b77ff7943a90f6022c",
+                "reviews"
+              ]
+            },
+            "description": "## Create New Review on Tour\n\nCreates a new review for a specific tour identified by its tour ID. The review includes a numeric rating and a text comment.\n\n---\n\n### Endpoint\n\n```\nPOST {{URL}}api/v1/tours/:tourId/reviews\n```\n\n| Component | Value |\n|-----------|-------|\n| Base URL | `{{URL}}` |\n| Tour ID (path) | `69c821b77ff7943a90f6022c` |\n\n---\n\n### Authentication\n\nThis request requires a valid JWT token. The token is read from the `{{jwt}}` variable and should be included in the `Authorization` header as a Bearer token:\n\n```\nAuthorization: Bearer {{jwt}}\n```\n\nMake sure the `jwt` variable is set in your active environment before sending this request.\n\n---\n\n### Request Body\n\nThe request body must be sent as `application/json`.\n\n| Field | Type | Required | Description |\n|-------|------|----------|-------------|\n| `rating` | `number` | Yes | Numeric rating for the tour (e.g., 1–5) |\n| `review` | `string` | Yes | Text content of the review |\n\n**Example:**\n```json\n{\n  \"rating\": 5,\n  \"review\": \"Cool\"\n}\n```\n\n---\n\n### Variables Used\n\n| Variable | Description |\n|----------|-------------|\n| `{{URL}}` | Base URL of the API (e.g., `https://api.example.com/`) |\n| `{{jwt}}` | JSON Web Token used for authentication |\n"
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Reviews on Tour",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}api/v1/tours/5c88fa8cf4afda39709c295d/reviews",
+              "host": [
+                "{{URL}}api"
+              ],
+              "path": [
+                "v1",
+                "tours",
+                "5c88fa8cf4afda39709c295d",
+                "reviews"
+              ]
+            },
+            "description": "## Get All Reviews on Tour\n\nRetrieves all reviews associated with a specific tour, identified by its tour ID in the URL path.\n\n**Endpoint:** `GET {{URL}}api/v1/tours/5c88fa8cf4afda39709c295d/reviews`\n\n**Tour ID:** `5c88fa8cf4afda39709c295d`\n\n### Authentication\n\nThis request requires a Bearer token for authentication. The token is sourced from the `{{jwt}}` variable (set in the active environment).\n\n```\nAuthorization: Bearer {{jwt}}\n```\n\n### Response\n\nOn success, the endpoint returns a list of reviews for the specified tour. Each review typically includes details such as the review text, rating, and the user who submitted it.\n\n**Example response shape:**\n```json\n{\n  \"status\": \"success\",\n  \"results\": 2,\n  \"data\": {\n    \"reviews\": [\n      {\n        \"_id\": \"...\",\n        \"review\": \"Amazing tour!\",\n        \"rating\": 5,\n        \"tour\": \"5c88fa8cf4afda39709c295d\",\n        \"user\": { ... }\n      }\n    ]\n  }\n}\n```\n\n| Status Code | Description |\n|-------------|-------------|\n| `200 OK` | Successfully retrieved the list of reviews |\n| `401 Unauthorized` | Missing or invalid Bearer token |\n| `404 Not Found` | Tour with the specified ID does not exist |"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Get All Users",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}api/v1/users",
+              "host": [
+                "{{URL}}api"
+              ],
+              "path": [
+                "v1",
+                "users"
+              ]
+            },
+            "description": "## Get All Users\n\nRetrieves a list of all registered users in the system.\n\n> **Admin only** — This endpoint requires a valid JWT with admin privileges. Pass the token using the `{{jwt}}` variable in the Authorization header.\n\n### Authentication\n\nUse Bearer token authentication:\n```\nAuthorization: Bearer {{jwt}}\n```\n\n### Request\n\n- **Method:** GET\n- **URL:** `{{URL}}api/v1/users`\n- **Body:** None\n- **Query Parameters:** None\n\n### Response\n\nReturns an array of user objects. Each object typically includes user details such as ID, name, email, and role.\n\n### Notes\n\n- Only users with an `admin` role can access this endpoint.\n- The `{{URL}}` variable should be set in your active environment (e.g., `Dev:ExploreNow`).\n- The `{{jwt}}` variable should contain a valid JWT obtained from the Auth endpoints (e.g., Login or Signup)."
+          },
+          "response": []
+        },
+        {
+          "name": "Get User",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}api/v1/users/2",
+              "host": [
+                "{{URL}}api"
+              ],
+              "path": [
+                "v1",
+                "users",
+                "2"
+              ]
+            },
+            "description": "## Get User\n\nRetrieves the details of a single user by their unique ID.\n\n> **Admin only** — This endpoint requires a valid JWT with admin privileges. Pass the token using the `{{jwt}}` variable in the Authorization header.\n\n### Authentication\n\nUse Bearer token authentication:\n```\nAuthorization: Bearer {{jwt}}\n```\n\n### Request\n\n- **Method:** GET\n- **URL:** `{{URL}}api/v1/users/:id`\n- **Body:** None\n- **Query Parameters:** None\n\n### Path Parameters\n\n| Parameter | Description | Example |\n|-----------|-------------|---------|\n| `id` | The unique ID of the user to retrieve | `2` |\n\n### Response\n\nReturns a single user object containing details such as the user's ID, name, email, and role.\n\n### Notes\n\n- Only users with an `admin` role can access this endpoint.\n- The `{{URL}}` variable should be set in your active environment (e.g., `Dev:ExploreNow`).\n- The `{{jwt}}` variable should contain a valid JWT obtained from the Auth endpoints (e.g., Login or Signup)."
+          },
+          "response": []
+        },
+        {
+          "name": "Delete User",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}api/v1/users/69837e384c8d28bffe9895ea",
+              "host": [
+                "{{URL}}api"
+              ],
+              "path": [
+                "v1",
+                "users",
+                "69837e384c8d28bffe9895ea"
+              ]
+            },
+            "description": "## Delete User\n\nDeletes a specific user from the system by their unique user ID. This operation is **permanent and irreversible** — once a user is deleted, their data cannot be recovered.\n\n### Endpoint\n\n`DELETE {{URL}}api/v1/users/69837e384c8d28bffe9895ea`\n\n### Authentication\n\nThis request requires a valid JWT bearer token. The token is supplied via the `jwt` variable and must be included in the `Authorization` header:\n\n```\nAuthorization: Bearer {{jwt}}\n```\n\n### URL Path\n\nThe user ID (`69837e384c8d28bffe9895ea`) is embedded directly in the URL path and identifies the user to be deleted.\n\n### Expected Behavior\n\n| Status Code | Description |\n|-------------|-------------|\n| `200 OK` / `204 No Content` | The user was successfully deleted. |\n| `401 Unauthorized` | Missing or invalid JWT token. |\n| `403 Forbidden` | The authenticated user does not have permission to delete this user. |\n| `404 Not Found` | No user exists with the specified ID. |"
+          },
+          "response": []
+        },
+        {
+          "name": "Update User",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"Administrator\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}api/v1/users/6980dee0ab638ee608711e37",
+              "host": [
+                "{{URL}}api"
+              ],
+              "path": [
+                "v1",
+                "users",
+                "6980dee0ab638ee608711e37"
+              ]
+            },
+            "description": "## Update User\n\nUpdates the details of an existing user identified by their unique user ID.\n\n### Endpoint\n\n```\nPATCH {{URL}}api/v1/users/6980dee0ab638ee608711e37\n```\n\n### Authentication\n\nThis endpoint requires a valid JWT token. Include the token in the `Authorization` header:\n\n```\nAuthorization: Bearer {{jwt}}\n```\n\nThe `{{jwt}}` variable should be set in your active environment before sending the request.\n\n### Path Parameters\n\n| Parameter | Type   | Description                          |\n|-----------|--------|--------------------------------------|\n| `id`      | string | The unique identifier of the user to update (`6980dee0ab638ee608711e37`) |\n\n### Request Body\n\nSend a JSON object containing the fields you want to update. Only the fields provided will be modified.\n\n```json\n{\n  \"name\": \"Administrator\"\n}\n```\n\n| Field  | Type   | Required | Description                        |\n|--------|--------|----------|------------------------------------|\n| `name` | string | No       | The new display name for the user  |\n\n### Variables\n\n| Variable | Description                                      |\n|----------|--------------------------------------------------|\n| `{{URL}}`  | Base URL of the API (e.g., `https://api.example.com/`) |\n| `{{jwt}}`  | JWT authentication token for the current session |\n\n### Expected Responses\n\n| Status Code | Description                                                  |\n|-------------|--------------------------------------------------------------|\n| `200 OK`    | User was successfully updated. Returns the updated user object. |\n| `400 Bad Request` | Invalid request body or malformed data.               |\n| `401 Unauthorized` | Missing or invalid JWT token.                        |\n| `403 Forbidden` | The authenticated user does not have permission to update this user. |\n| `404 Not Found` | No user found with the specified ID.                  |\n| `500 Internal Server Error` | An unexpected error occurred on the server. |"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Me",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"Pavle Dimitrijevic\",\r\n    \"role\": \"admin\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}api/v1/users/updateMe",
+              "host": [
+                "{{URL}}api"
+              ],
+              "path": [
+                "v1",
+                "users",
+                "updateMe"
+              ]
+            },
+            "description": "## Update Current User\n\nUpdates the profile information of the currently authenticated user. This endpoint allows a logged-in user to modify their own account details.\n\n> **Note:** Authentication is required. Include a valid JWT token via the `jwt` variable (used in the Authorization header or as configured in the collection).\n\n---\n\n### Request Body\n\nThe request body should be sent as raw JSON with the following fields:\n\n| Field  | Type   | Required | Description |\n|--------|--------|----------|-------------|\n| `name` | string | No       | The updated display name of the user. |\n| `role` | string | No       | The role to assign to the user (e.g., `\"admin\"`, `\"user\"`). |\n\n**Example:**\n```json\n{\n  \"name\": \"Pavle Dimitrijevic\",\n  \"role\": \"admin\"\n}\n```\n\n---\n\n### Notes\n\n- Only the fields provided in the request body will be updated; omitted fields remain unchanged.\n- The `role` field may be restricted depending on server-side authorization rules — regular users may not be permitted to change their own role.\n- The base URL is controlled by the `{{URL}}` environment variable. Make sure the correct environment (e.g., `Dev:ExploreNow`) is active before sending the request.\n- A valid `{{jwt}}` token must be set in the active environment for the request to be authorized."
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Me",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}api/v1/users/deleteMe",
+              "host": [
+                "{{URL}}api"
+              ],
+              "path": [
+                "v1",
+                "users",
+                "deleteMe"
+              ]
+            },
+            "description": "## Delete Authenticated User\n\nPermanently deletes the account of the currently authenticated user. This action is irreversible.\n\n**Endpoint:** `DELETE {{URL}}api/v1/users/deleteMe`\n\n### Authentication\n\nThis request requires a valid JWT token passed via the `{{jwt}}` variable. Ensure the active environment has a valid token set before sending this request.\n\n| Header | Value |\n|---|---|\n| `Authorization` | `Bearer {{jwt}}` |\n\n### Variables\n\n| Variable | Description |\n|---|---|\n| `{{URL}}` | The base URL of the API (e.g., `https://api.example.com/`) |\n| `{{jwt}}` | A valid JSON Web Token for the authenticated user |\n\n### Response\n\n| Status Code | Description |\n|---|---|\n| `204 No Content` | User account successfully deleted |\n| `401 Unauthorized` | Missing or invalid JWT token |\n| `404 Not Found` | User not found |\n\n### Notes\n\n- This endpoint deletes the account of the user identified by the provided JWT — it does not require a user ID in the path.\n- Once deleted, the user's session and data are permanently removed and cannot be recovered."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Me",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}api/v1/users/me",
+              "host": [
+                "{{URL}}api"
+              ],
+              "path": [
+                "v1",
+                "users",
+                "me"
+              ]
+            },
+            "description": "## Get Current Authenticated User\n\nRetrieves the profile and details of the currently authenticated user.\n\n**Method:** `GET`  \n**Endpoint:** `{{URL}}api/v1/users/me`\n\n---\n\n### Base URL\n\nThis request uses the `{{URL}}` collection variable as the base URL. Make sure this variable is set in your active environment (e.g., `Dev:ExploreNow` or `Prod:ExploreNow`) before sending the request.\n\n### Authentication\n\nThis endpoint requires a valid **JWT (JSON Web Token)**. The token is referenced via the `{{jwt}}` variable, which should be set in your active environment. Ensure the token is current and has not expired before making the request.\n\n### Response\n\nOn success, the API returns the profile details of the authenticated user, such as their ID, name, email, and any other user-specific attributes exposed by the API.\n\n### Common Status Codes\n\n| Status Code | Description |\n| --- | --- |\n| `200 OK` | Successfully retrieved the authenticated user's details. |\n| `401 Unauthorized` | The JWT is missing, invalid, or expired. |\n| `403 Forbidden` | The token is valid but the user lacks permission. |"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Update My Password",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.environment.set(\"jwt\", pm.response.json().token);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"passwordCurrent\":\"pass1234\",\r\n    \"password\":\"newpassword\",\r\n    \"passwordConfirm\":\"newpassword\"\r\n\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}api/v1/users/updateMyPassword",
+              "host": [
+                "{{URL}}api"
+              ],
+              "path": [
+                "v1",
+                "users",
+                "updateMyPassword"
+              ]
+            },
+            "description": "## Update My Password\n\nUpdates the authenticated user's password. This endpoint requires the user to provide their current password along with the new password for verification.\n\n### Request Body\n\n| Field | Type | Description |\n|---|---|---|\n| `passwordCurrent` | `string` | The user's current (existing) password. Used to verify identity before allowing the password change. |\n| `password` | `string` | The new password to set for the account. |\n| `passwordConfirm` | `string` | Confirmation of the new password. Must match the `password` field exactly. |\n\n### Response\n\nOn success, the API returns a new JWT token reflecting the updated credentials. The post-response script automatically saves this token to the `jwt` environment variable:\n\n```js\npm.environment.set(\"jwt\", pm.response.json().token);\n```\n\nThis ensures subsequent requests that rely on `{{jwt}}` for authentication will use the updated token without any manual intervention."
+          },
+          "response": []
+        },
+        {
+          "name": "Reset Password",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.environment.set(\"jwt\", pm.response.json().token);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}api/v1/users/resetPassword/33232",
+              "host": [
+                "{{URL}}api"
+              ],
+              "path": [
+                "v1",
+                "users",
+                "resetPassword",
+                "33232"
+              ]
+            },
+            "description": "## Reset Password\n\nResets the password for a specific user account.\n\n**Method:** `PATCH`  \n**URL:** `{{URL}}api/v1/users/resetPassword/:userId`\n\n---\n\n### URL Structure\n\n| Component | Description |\n|-----------|-------------|\n| `{{URL}}` | Base URL of the API, resolved from the active environment variable |\n| `api/v1/users/resetPassword/` | Endpoint path for the reset password operation |\n| `:userId` | The unique ID of the user whose password is being reset (e.g., `33232`) |\n\n---\n\n### Response\n\nOn a successful request, the API returns a response containing a JWT token:\n\n```json\n{\n  \"token\": \"<jwt_token>\"\n}\n```\n\nThe post-response script automatically extracts this token and stores it in the `jwt` environment variable for use in subsequent authenticated requests:\n\n```javascript\npm.environment.set(\"jwt\", pm.response.json().token);\n```\n\n---\n\n### Notes\n\n- Ensure the `URL` environment variable is set correctly in the active environment before sending this request.\n- The `jwt` environment variable will be updated automatically after a successful password reset, allowing downstream requests to use the new token without manual intervention."
+          },
+          "response": []
+        },
+        {
+          "name": "Forgot Password",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\":\"hello@pavle.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}api/v1/users/forgotPassword",
+              "host": [
+                "{{URL}}api"
+              ],
+              "path": [
+                "v1",
+                "users",
+                "forgotPassword"
+              ]
+            },
+            "description": "## Forgot Password\n\nInitiates the forgot password flow for a registered user. When a valid email address is submitted, the server triggers a password reset process — typically by sending a password reset link or OTP to the provided email address.\n\n---\n\n### Request Body\n\nThe request body must be sent as `application/json`.\n\n| Field   | Type   | Required | Description                              |\n|---------|--------|----------|------------------------------------------|\n| `email` | string | Yes      | The email address of the registered user |\n\n**Example:**\n```json\n{\n  \"email\": \"hello@pavle.com\"\n}\n```\n\n---\n\n### Expected Behavior\n\n- **Success (`2xx`)** — The server acknowledges the request and dispatches a password reset email to the provided address (if an account with that email exists). The response typically does not reveal whether the email is registered, to prevent user enumeration.\n- **Bad Request (`400`)** — Returned if the `email` field is missing or not a valid email format.\n- **Not Found / No Action** — Some implementations silently succeed even if the email is not found, to avoid exposing registered user information.\n\n> **Note:** Check your inbox (and spam folder) for the password reset email after a successful request."
+          },
+          "response": []
+        },
+        {
+          "name": "Sign Up",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.environment.set(\"jwt\", pm.response.json().token);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\":\"user2@pavle.com\",\r\n    \"password\":\"pass1234\",\r\n    \"passwordConfirm\": \"pass1234\",\r\n    \"name\": \"Test user 2\",\r\n    \"role\":\"user\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}api/v1/users/signup",
+              "host": [
+                "{{URL}}api"
+              ],
+              "path": [
+                "v1",
+                "users",
+                "signup"
+              ]
+            },
+            "description": "## Sign Up\n\nRegisters a new user account. On success, returns a JWT token which is automatically stored in the `jwt` environment variable via the post-response script.\n\n**Endpoint:** `POST {{URL}}api/v1/users/signup`\n\n---\n\n### Request Body\n\nSend a JSON object with the following fields:\n\n| Field             | Type   | Required | Description                                      |\n|-------------------|--------|----------|--------------------------------------------------|\n| `email`           | string | Yes      | The user's email address                         |\n| `password`        | string | Yes      | The user's chosen password                       |\n| `passwordConfirm` | string | Yes      | Must match `password`                            |\n| `name`            | string | Yes      | The user's display name                          |\n| `role`            | string | No       | The user's role (e.g. `user`, `admin`)           |\n\n**Example:**\n```json\n{\n  \"email\": \"user@example.com\",\n  \"password\": \"pass1234\",\n  \"passwordConfirm\": \"pass1234\",\n  \"name\": \"Test User\",\n  \"role\": \"user\"\n}\n```\n\n---\n\n### Response\n\nOn a successful registration, the API returns a JWT token:\n\n```json\n{\n  \"token\": \"<jwt_token>\"\n}\n```\n\nThe post-response script automatically saves the returned token to the `jwt` environment variable, making it available for authenticated requests."
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.environment.set(\"jwt\", pm.response.json().token);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\":\"admin@explorenow.com\",\r\n    \"password\":\"{{password}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}api/v1/users/login",
+              "host": [
+                "{{URL}}api"
+              ],
+              "path": [
+                "v1",
+                "users",
+                "login"
+              ]
+            },
+            "description": "## Login\n\nAuthenticates a user with their email and password, and returns a signed **JWT token** for use in subsequent authenticated requests.\n\n**Method:** `POST`\n**URL:** `{{URL}}api/v1/users/login`\n**Auth required:** No\n\n---\n\n### Request Body\n\n**Content-Type:** `application/json`\n\n```json\n{\n  \"email\": \"admin@explorenow.com\",\n  \"password\": \"{{password}}\"\n}\n```\n\n| Field | Type | Required | Description |\n|-------|------|----------|-------------|\n| `email` | string | Yes | The registered email address of the user |\n| `password` | string | Yes | The user's account password |\n\n---\n\n### Variables\n\n| Variable | Description |\n|----------|-------------|\n| `{{URL}}` | Base URL of the API server (e.g. `http://localhost:3000/`) |\n| `{{password}}` | The user's password, stored as an environment variable |\n\n---\n\n### Response\n\n**Success — `200 OK`**\n\n```json\n{\n  \"status\": \"success\",\n  \"token\": \"<jwt_token>\"\n}\n```\n\n| Field | Type | Description |\n|-------|------|-------------|\n| `status` | string | Response status (`\"success\"`) |\n| `token` | string | Signed JWT token to be used for authenticated requests |\n\n**Failure — `401 Unauthorized`**\n\nReturned when the email or password is incorrect.\n\n```json\n{\n  \"status\": \"fail\",\n  \"message\": \"Incorrect email or password\"\n}\n```\n\n---\n\n### Post-response Behavior\n\nAfter a successful response, the JWT token is automatically saved to the environment variable `jwt`:\n\n```js\npm.environment.set(\"jwt\", pm.response.json().token);\n```\n\nSubsequent requests can then reference `{{jwt}}` in their `Authorization` header:\n\n```\nAuthorization: Bearer {{jwt}}\n```\n\n---\n\n### Notes\n\n- This endpoint does **not** require authentication.\n- The `{{password}}` variable should be stored securely in the active environment and never hardcoded.\n- The JWT token has an expiry — re-run this request to refresh it when needed."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Reviews",
+      "item": [
+        {
+          "name": "Get All Reviews",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}api/v1/reviews",
+              "host": [
+                "{{URL}}api"
+              ],
+              "path": [
+                "v1",
+                "reviews"
+              ]
+            },
+            "description": "## Get All Reviews\n\nRetrieves a list of all reviews stored in the system.\n\n**Method:** `GET`  \n**URL:** `{{URL}}api/v1/reviews`  \n**Auth required:** Yes (Bearer Token)\n\n---\n\n### Authentication\n\nThis request requires a valid JWT token passed as a Bearer token in the `Authorization` header:\n\n```\nAuthorization: Bearer {{jwt}}\n\n ```\n\nThe `{{jwt}}` variable is automatically populated after a successful [Login](https://{{URL}}api/v1/users/login) request.\n\n---\n\n### Variables\n\n| Variable | Description |\n| --- | --- |\n| `{{URL}}` | Base URL of the API server (e.g. `http://localhost:3000/`) |\n| `{{jwt}}` | JWT token obtained from the Login request |\n\n---\n\n### Response\n\n**Success —** **`200 OK`**\n\nReturns an array of all review objects.\n\n``` json\n{\n  \"status\": \"success\",\n  \"results\": 2,\n  \"data\": {\n    \"data\": [\n      {\n        \"_id\": \"5c8a34ed14eb5c17645c9108\",\n        \"review\": \"Amazing experience!\",\n        \"rating\": 5,\n        \"tour\": \"5c88fa8cf4afda39709c295d\",\n        \"user\": {\n          \"_id\": \"5c8a1dfa2f8fb814b56fa181\",\n          \"name\": \"John Doe\"\n        }\n      }\n    ]\n  }\n}\n\n ```\n\n| Field | Type | Description |\n| --- | --- | --- |\n| `status` | string | Response status (`\"success\"`) |\n| `results` | number | Total number of reviews returned |\n| `data.data` | array | Array of review objects |\n\n**Failure —** **`401 Unauthorized`**\n\nReturned when the JWT token is missing or invalid.\n\n``` json\n{\n  \"status\": \"fail\",\n  \"message\": \"You are not logged in! Please log in to get access.\"\n}\n\n ```\n\n---\n\n### Notes\n\n- This endpoint returns **all reviews** across all tours.\n    \n- To retrieve reviews for a specific tour, use the **Get All Reviews on Tour** endpoint: `GET {{URL}}api/v1/tours/:tourId/reviews`\n    \n- Ensure the `{{jwt}}` environment variable is set before sending this request."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Review",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"rating\":5,\r\n    \"review\":\"Mind blowing!\"\r\n}"
+            },
+            "url": {
+              "raw": "{{URL}}api/v1/reviews/69838b6cd67202cf0682413a",
+              "host": [
+                "{{URL}}api"
+              ],
+              "path": [
+                "v1",
+                "reviews",
+                "69838b6cd67202cf0682413a"
+              ]
+            },
+            "description": "## Get Review\n\nRetrieves a specific review by its unique ID. Returns the details of the review associated with the provided review ID in the URL path.\n\n---\n\n### HTTP Method & URL\n\n```\nGET {{URL}}api/v1/reviews/:reviewId\n```\n\n| Component | Value |\n|-----------|-------|\n| Method | `GET` |\n| Base URL | `{{URL}}` |\n| Endpoint | `api/v1/reviews/69838b6cd67202cf0682413a` |\n\n---\n\n### URL / Path Variables\n\n| Variable | Description |\n|----------|-------------|\n| `{{URL}}` | Base URL of the API (e.g., `https://api.explorenow.com/`). Set in the active environment. |\n| `reviewId` | The unique identifier of the review to retrieve. Currently hardcoded as `69838b6cd67202cf0682413a` in the URL. |\n\n---\n\n### Authentication\n\nThis request requires a valid JWT Bearer token. The token is sourced from the `{{jwt}}` environment variable.\n\n```\nAuthorization: Bearer {{jwt}}\n```\n\nEnsure the `jwt` variable is set in your active environment before sending the request.\n\n---\n\n### Request Body\n\n> **Note:** Although this is a `GET` request, a raw JSON body is included. This is non-standard for GET requests, but may be required by this particular API implementation.\n\n**Content-Type:** `application/json`\n\n```json\n{\n  \"rating\": 5,\n  \"review\": \"Mind blowing!\"\n}\n```\n\n| Field | Type | Description |\n|-------|------|-------------|\n| `rating` | `number` | Numeric rating value for the review. |\n| `review` | `string` | Text content of the review. |\n\n---\n\n### Example Response\n\nA successful request returns a `200 OK` response with the review object:\n\n```json\n{\n  \"_id\": \"69838b6cd67202cf0682413a\",\n  \"rating\": 5,\n  \"review\": \"Mind blowing!\",\n  \"user\": {\n    \"_id\": \"...\",\n    \"name\": \"...\"\n  },\n  \"createdAt\": \"2024-01-01T00:00:00.000Z\",\n  \"updatedAt\": \"2024-01-01T00:00:00.000Z\"\n}\n```\n\n| Status Code | Description |\n|-------------|-------------|\n| `200 OK` | Review retrieved successfully. |\n| `401 Unauthorized` | Missing or invalid JWT token. |\n| `404 Not Found` | No review found for the given ID. |"
+          },
+          "response": []
+        },
+        {
+          "name": "Create New Review",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"review\":\"loved it\",\r\n    \"rating\":4,\r\n    \"tour\":\"5c88fa8cf4afda39709c2951\",\r\n    \"user\":\"69820adc3b8ed5cd26ba8533\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}api/v1/reviews",
+              "host": [
+                "{{URL}}api"
+              ],
+              "path": [
+                "v1",
+                "reviews"
+              ]
+            },
+            "description": "## Create New Review\n\nCreates a new review for a specific tour. This endpoint allows authenticated users to submit a rating and written review for a tour they have taken.\n\n**Endpoint:** `POST {{URL}}api/v1/reviews`\n\n---\n\n### Authentication\n\nThis request requires a valid JWT token. The token should be passed in the `Authorization` header using the `{{jwt}}` variable:\n\n```\nAuthorization: Bearer {{jwt}}\n\n ```\n\n---\n\n### Request Body\n\nThe request body must be sent as raw JSON with the following fields:\n\n| Field | Type | Description |\n| --- | --- | --- |\n| `review` | string | The written review text submitted by the user |\n| `rating` | number | Numeric rating for the tour (e.g., 1–5 scale) |\n| `tour` | string | The unique ID of the tour being reviewed |\n| `user` | string | The unique ID of the user submitting the review |\n\n**Example Request Body:**\n\n``` json\n{\n  \"review\": \"loved it\",\n  \"rating\": 4,\n  \"tour\": \"5c88fa8cf4afda39709c2951\",\n  \"user\": \"69820adc3b8ed5cd26ba8533\"\n}\n\n ```\n\n---\n\n### Notes\n\n- The `{{URL}}` variable should be set in the active environment (e.g., `Dev:ExploreNow`) to point to the correct base URL.\n    \n- Ensure the `tour` and `user` IDs correspond to existing documents in the database.\n    \n- A successful request will return the newly created review object with an appropriate `2xx` status code."
+          },
+          "response": []
+        },
+        {
+          "name": "Update Review",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"rating\": 2\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}api/v1/reviews/69c82262c8eb222e992477d3",
+              "host": [
+                "{{URL}}api"
+              ],
+              "path": [
+                "v1",
+                "reviews",
+                "69c82262c8eb222e992477d3"
+              ]
+            },
+            "description": "## Update Review\n\nUpdates an existing review by its ID. This endpoint allows partial updates to a review resource using the PATCH method.\n\n**Endpoint:** `PATCH {{URL}}api/v1/reviews/69c82262c8eb222e992477d3`\n\n### Authentication\n\nThis request requires a valid JWT token. The token should be available via the `{{jwt}}` variable and must be included in the request (e.g., as a Bearer token in the `Authorization` header).\n\n### Path Parameters\n\n| Parameter | Description |\n| --- | --- |\n| `69c82262c8eb222e992477d3` | The unique ID of the review to update |\n\n### Request Body\n\nSend a raw JSON body with the fields you want to update.\n\n``` json\n{\n  \"rating\": 2\n}\n\n ```\n\n| Field | Type | Description |\n| --- | --- | --- |\n| `rating` | Number | The updated rating value for the review |\n\n### Variables\n\n| Variable | Description |\n| --- | --- |\n| `{{URL}}` | Base URL of the API (e.g., `https://api.example.com/`) |\n| `{{jwt}}` | JWT authentication token used to authorize the request |\n\n### Response\n\nOn success, returns the updated review object with a `200 OK` status code."
+          },
+          "response": []
+        },
+        {
+          "name": "Delete a Review",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{URL}}api/v1/reviews/69c82262c8eb222e992477d3",
+              "host": [
+                "{{URL}}api"
+              ],
+              "path": [
+                "v1",
+                "reviews",
+                "69c82262c8eb222e992477d3"
+              ]
+            },
+            "description": "## Delete a Review\n\nDeletes a specific review identified by its unique ID.\n\n**Method:** `DELETE`  \n**Endpoint:** `{{URL}}api/v1/reviews/:reviewId`\n\n### Path Parameters\n\n| Parameter  | Type   | Description                          |\n|------------|--------|--------------------------------------|\n| `reviewId` | string | The unique ID of the review to delete |\n\n### Authentication\n\nThis request requires a valid JWT token. Include it in the request using the `{{jwt}}` variable.\n\n### Response\n\n- **200 OK** – The review was successfully deleted.\n- **401 Unauthorized** – Missing or invalid authentication token.\n- **404 Not Found** – No review found with the specified ID.\n\n### Notes\n\n- This action is **irreversible**. Once a review is deleted, it cannot be recovered.\n- Ensure the authenticated user has the appropriate permissions to delete the target review."
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseURL",
+      "value": "",
+      "type": "default"
+    }
+  ]
+}
