@@ -74,7 +74,8 @@ EMAIL_PASSWORD=<MAILTRAP_PASSWORD>
 
 You can test the API using this Postman collection:
 
-[Path to collection(json) inside the project:](/dev-data/postman/explorenow_postman_collection.json)
+Path to collection(json) inside the project:
+/dev-data/postman/explorenow_postman_collection.json
 
 How to use:
 
