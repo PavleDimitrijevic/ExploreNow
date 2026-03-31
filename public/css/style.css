@@ -873,6 +873,7 @@ img {
   gap: 1.6rem;
   justify-content: space-between;
   align-items: center;
+  font-size: 1.5rem;
 }
 
 .footer__logo {
@@ -881,7 +882,7 @@ img {
 }
 
 .footer__logo img {
-  height: 3rem;
+  height: 6rem;
 }
 
 .footer__nav {
@@ -908,7 +909,7 @@ img {
 }
 
 .footer__copyright {
-  justify-self: end;
+  justify-self: auto;
   color: var(--muted);
 }
 
@@ -1214,7 +1215,7 @@ img {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 1rem;
-  font-size: 1.35rem;
+  font-size: 1.5rem;
 }
 
 .card__footer-value {
