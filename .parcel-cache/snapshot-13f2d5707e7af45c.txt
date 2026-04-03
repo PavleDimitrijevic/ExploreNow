@@ -4,7 +4,7 @@
 72C:\Projects\ExploreNow\node_modules\validator\lib\util\multilineRegex.js134136664864783762 0
 46C:\Projects\ExploreNow\node_modules\nullthrows134195324184268980 1
 62C:\Projects\ExploreNow\node_modules\side-channel\tsconfig.json134134689133010782 0
-29C:\Projects\ExploreNow\app.js134197002736692951 0
+29C:\Projects\ExploreNow\app.js134197085416795816 0
 64C:\Projects\ExploreNow\node_modules\tsconfig-paths\lib\__tests__134134898536203135 1
 72C:\Projects\ExploreNow\node_modules\prettier-linter-helpers\package.json134134898521591401 0
 71C:\Projects\ExploreNow\node_modules\eslint-plugin-jsx-a11y\lib\index.js134134898536827277 0
@@ -97,7 +97,7 @@
 37C:\Projects\ExploreNow\utils\email.js134141777601523618 0
 56C:\Projects\ExploreNow\node_modules\semver\ranges\gtr.js134134899216095636 0
 66C:\Projects\ExploreNow\node_modules\validator\lib\util\toString.js134136664865005249 0
-32C:\Projects\ExploreNow\public\js134197015299016400 1
+32C:\Projects\ExploreNow\public\js134197125643534725 1
 80C:\Projects\ExploreNow\node_modules\eslint-config-airbnb-base\rules\variables.js134134898529911407 0
 68C:\Projects\ExploreNow\node_modules\array.prototype.flat\polyfill.js134134898527781408 0
 71C:\Projects\ExploreNow\node_modules\available-typed-arrays\CHANGELOG.md134134898525801401 0
@@ -305,7 +305,7 @@
 50C:\Projects\ExploreNow\node_modules\ast-types-flow134134898524291391 1
 84C:\Projects\ExploreNow\node_modules\es-abstract\2018\AbstractRelationalComparison.js134134898533121393 0
 43C:\Projects\ExploreNow\routes\tourRoutes.js134192668036115825 0
-43C:\Projects\ExploreNow\routes\userRoutes.js134190889392002476 0
+43C:\Projects\ExploreNow\routes\userRoutes.js134197122202079148 0
 70C:\Projects\ExploreNow\node_modules\@swc\helpers\src\_create_class.mjs134195324214372211 0
 53C:\Projects\ExploreNow\node_modules\parcel\src\cli.js134195324197329930 0
 74C:\Projects\ExploreNow\node_modules\uri-js\dist\esnext\schemes\mailto.d.ts134134898532921420 0
@@ -353,7 +353,7 @@
 70C:\Projects\ExploreNow\node_modules\validator\es\lib\normalizeEmail.js134136664864803763 0
 56C:\Projects\ExploreNow\node_modules\nodemon\lib\spawn.js134134899216345634 0
 60C:\Projects\ExploreNow\node_modules\validator\lib\isOctal.js134136664864232320 0
-42C:\Projects\ExploreNow\public\js\bundle.js134197015299006405 0
+42C:\Projects\ExploreNow\public\js\bundle.js134197125643509583 0
 52C:\Projects\ExploreNow\node_modules\is-map\.eslintrc134134898521481395 0
 58C:\Projects\ExploreNow\node_modules\has-symbols\shams.d.ts134134689133610792 0
 75C:\Projects\ExploreNow\node_modules\es-abstract\2022\Number\exponentiate.js134134898548275559 0
@@ -367,9 +367,9 @@
 71C:\Projects\ExploreNow\node_modules\resolve\test\precedence\aaa\main.js134134898535793077 0
 74C:\Projects\ExploreNow\node_modules\@eslint-community\eslint-utils\LICENSE134134898521081428 0
 87C:\Projects\ExploreNow\node_modules\eslint-plugin-node\lib\rules\prefer-promises\dns.js134134898530131390 0
-41C:\Projects\ExploreNow\public\js\index.js134196999075354605 0
+41C:\Projects\ExploreNow\public\js\index.js134197124525861111 0
 73C:\Projects\ExploreNow\node_modules\call-bind-apply-helpers\tsconfig.json134134689133420781 0
-41C:\Projects\ExploreNow\public\js\login.js134197015203136181 0
+41C:\Projects\ExploreNow\public\js\login.js134197123520062410 0
 50C:\Projects\ExploreNow\node_modules\node-addon-api134195324191355398 1
 50C:\Projects\ExploreNow\node_modules\is-string\test134134898523951392 1
 67C:\Projects\ExploreNow\node_modules\caniuse-lite\data\regions\CH.js134195324203239974 0
@@ -12011,7 +12011,7 @@
 67C:\Projects\ExploreNow\node_modules\es-abstract\2017\ToPrimitive.js134134898567065593 0
 76C:\Projects\ExploreNow\node_modules\es-abstract\2017\ToPropertyDescriptor.js134134898567195555 0
 69C:\Projects\ExploreNow\node_modules\es-abstract\2017\ToPropertyKey.js134134898567325557 0
-52C:\Projects\ExploreNow\controllers\authController.js134196983576154836 0
+52C:\Projects\ExploreNow\controllers\authController.js134197120330041983 0
 60C:\Projects\ExploreNow\node_modules\@parcel\utils\test\input134195324203872838 1
 64C:\Projects\ExploreNow\node_modules\es-abstract\2017\ToString.js134134898567415538 0
 83C:\Projects\ExploreNow\node_modules\caniuse-lite\data\features\rtcpeerconnection.js134195324219355196 0

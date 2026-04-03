@@ -8,7 +8,7 @@ import qs from 'qs';
 import cookieParser from 'cookie-parser';
 
 import tourRouter from './routes/tourRoutes.js';
-import userRotuer from './routes/userRoutes.js';
+import userRouter from './routes/userRoutes.js';
 import reviewRouter from './routes/reviewRoutes.js';
 import viewRouter from './routes/viewRoutes.js';
 
@@ -60,7 +60,7 @@ app.use((req, res, next) => {
 
 app.use('/', viewRouter);
 app.use('/api/v1/tours', tourRouter);
-app.use('/api/v1/users', userRotuer);
+app.use('/api/v1/users', userRouter);
 app.use('/api/v1/reviews', reviewRouter);
 
 app.use((req, res, next) => {
