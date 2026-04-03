@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
 import qs from 'qs';
+import cookieParser from 'cookie-parser';
 
 import tourRouter from './routes/tourRoutes.js';
 import userRotuer from './routes/userRoutes.js';
@@ -47,6 +48,7 @@ app.use('/api', limiter);
 
 // Body parser
 app.use(express.json({ limit: '10kb' }));
+app.use(cookieParser());
 
 // Test middleware
 app.use((req, res, next) => {
