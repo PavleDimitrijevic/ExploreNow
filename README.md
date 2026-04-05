@@ -1,6 +1,6 @@
 # ExploreNow
 
-ExploreNow is a backend REST API for searching and booking adventure tours. The backend is built with Node.js, Express, and MongoDB. The app implements modern REST API practices, JWT authentication, and features like filtering, sorting, pagination, and virtual population. The application uses server-side rendering (SSR) with Pug templates to deliver dynamic HTML pages and improve user experience and SEO.
+ExploreNow is a full-stack web application for searching and booking adventure tours. It includes a REST API built with Node.js, Express, and MongoDB, implementing modern API practices such as JWT authentication, filtering, sorting, pagination, and virtual population. The application also uses server-side rendering (SSR) with Pug templates to deliver dynamic HTML pages, along with client-side JavaScript bundled using Parcel and Axios for API communication.
 
 ---
 
@@ -13,6 +13,7 @@ ExploreNow is a backend REST API for searching and booking adventure tours. The 
 - **Environment Variables:** dotenv, cross-env
 - **Linting & Formatting:** ESLint (Airbnb + Prettier)
 - **Security:** helmet, rate-limit
+- **Frontend (Client-side):**Vanilla JavaScript, Axios, Parcel
 
 ---
 
@@ -37,6 +38,11 @@ ExploreNow is a backend REST API for searching and booking adventure tours. The 
 - Server-Side Rendering (SSR)
   - Dynamic rendering using Pug templates
   - Fully rendered HTML pages delivered from the server
+
+- Client-side functionality
+  - Form handling and DOM manipulation with JavaScript
+  - API communication using Axios
+  - Bundling frontend JavaScript using Parcel
 
 ---
 
